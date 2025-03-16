@@ -26,7 +26,7 @@ import jakarta.persistence.Id;
 public class MyEntity {
     @Id
     @GeneratedValue
-    public Long id;
+    public Long idasdasdasd;
 
     public String field;
 }
