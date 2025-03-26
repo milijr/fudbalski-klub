@@ -13,6 +13,10 @@ public class Trener {
         this.nacionalnost = nacionalnost;
     }
 
+    public Trener() {
+
+    }
+
     public String getIme() {
         return ime;
     }

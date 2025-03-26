@@ -1,20 +1,28 @@
 package me.milija.model;
 
 
+import jakarta.persistence.*;
+
 import java.util.Objects;
 
+@Entity
 public class Klub {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "klub_seq")
     private long id;
     private String grad;
-    private long godina;
+    private String godina;
     private String naziv;
 
-    public Klub(long id, long godina, String grad, String naziv) {
+    public Klub(long id, String godina, String grad, String naziv) {
         this.id = id;
         this.godina = godina;
         this.grad = grad;
         this.naziv = naziv;
+    }
+
+    public Klub() {
     }
 
     public long getId() {
@@ -25,11 +33,11 @@ public class Klub {
         this.id = id;
     }
 
-    public long getGodina() {
+    public String getGodina() {
         return godina;
     }
 
-    public void setGodina(long godina) {
+    public void setGodina(String godina) {
         this.godina = godina;
     }
 

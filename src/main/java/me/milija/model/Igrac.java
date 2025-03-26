@@ -16,6 +16,10 @@ public class Igrac {
         this.broj_dresa = broj_dresa;
     }
 
+    public Igrac() {
+
+    }
+
     public String getIme() {
         return ime;
     }

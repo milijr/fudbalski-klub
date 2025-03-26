@@ -1,16 +1,35 @@
 package me.milija.model;
 
-import java.sql.Date;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+import java.util.Date;
 import java.util.Objects;
 
+@Entity
 public class Utakmica {
 
+    @Id
+    private long id;
     private String stadion;
     private Date datum;
 
-    public Utakmica(String stadion, Date datum) {
+    public Utakmica(long id, String stadion, Date datum) {
+        this.id = id;
         this.stadion = stadion;
         this.datum = datum;
+    }
+
+    public Utakmica() {
+
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getStadion() {
@@ -30,14 +49,17 @@ public class Utakmica {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Utakmica utakmica = (Utakmica) o;
-        return Objects.equals(getStadion(), utakmica.getStadion()) && Objects.equals(getDatum(), utakmica.getDatum());
+    public final boolean equals(Object o) {
+        if (!(o instanceof Utakmica utakmica)) return false;
+
+        return getId() == utakmica.getId() && getStadion().equals(utakmica.getStadion()) && getDatum().equals(utakmica.getDatum());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getStadion(), getDatum());
+        int result = Long.hashCode(getId());
+        result = 31 * result + getStadion().hashCode();
+        result = 31 * result + getDatum().hashCode();
+        return result;
     }
 }
