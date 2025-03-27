@@ -10,12 +10,12 @@ public class Klub {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "klub_seq")
-    private long id;
+    private Long id;
     private String grad;
     private String godina;
     private String naziv;
 
-    public Klub(long id, String godina, String grad, String naziv) {
+    public Klub(Long id, String godina, String grad, String naziv) {
         this.id = id;
         this.godina = godina;
         this.grad = grad;
@@ -25,11 +25,11 @@ public class Klub {
     public Klub() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -58,14 +58,17 @@ public class Klub {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Klub klub = (Klub) o;
-        return getId() == klub.getId() && getGodina() == klub.getGodina() && Objects.equals(getGrad(), klub.getGrad()) && Objects.equals(getNaziv(), klub.getNaziv());
+    public final boolean equals(Object o) {
+        if (!(o instanceof Klub klub)) return false;
+        return getId().equals(klub.getId()) && getGrad().equals(klub.getGrad()) && getGodina().equals(klub.getGodina()) && getNaziv().equals(klub.getNaziv());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getGrad(), getGodina(), getNaziv());
+        int result = getId().hashCode();
+        result = 31 * result + getGrad().hashCode();
+        result = 31 * result + getGodina().hashCode();
+        result = 31 * result + getNaziv().hashCode();
+        return result;
     }
 }
