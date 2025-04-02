@@ -1,15 +1,25 @@
 package me.milija.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 import java.util.Objects;
 
+@Entity
 public class Igrac {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "igrac_seq")
+    private Long id;
     private String ime;
     private String prezime;
     private String pozicija;
     private int broj_dresa;
 
-    public Igrac(String ime, String prezime, String pozicija, int broj_dresa) {
+    public Igrac(Long id, String ime, String prezime, String pozicija, int broj_dresa) {
+        this.id = id;
         this.ime = ime;
         this.prezime = prezime;
         this.pozicija = pozicija;
@@ -18,6 +28,14 @@ public class Igrac {
 
     public Igrac() {
 
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getIme() {
@@ -55,12 +73,29 @@ public class Igrac {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
+
         Igrac igrac = (Igrac) o;
-        return getBroj_dresa() == igrac.getBroj_dresa() && Objects.equals(getIme(), igrac.getIme()) && Objects.equals(getPrezime(), igrac.getPrezime()) && Objects.equals(getPozicija(), igrac.getPozicija());
+        return getBroj_dresa() == igrac.getBroj_dresa() && getId().equals(igrac.getId()) && getIme().equals(igrac.getIme()) && getPrezime().equals(igrac.getPrezime()) && getPozicija().equals(igrac.getPozicija());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIme(), getPrezime(), getPozicija(), getBroj_dresa());
+        int result = getId().hashCode();
+        result = 31 * result + getIme().hashCode();
+        result = 31 * result + getPrezime().hashCode();
+        result = 31 * result + getPozicija().hashCode();
+        result = 31 * result + getBroj_dresa();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Igrac{" +
+                "id=" + id +
+                ", ime='" + ime + '\'' +
+                ", prezime='" + prezime + '\'' +
+                ", pozicija='" + pozicija + '\'' +
+                ", broj_dresa=" + broj_dresa +
+                '}';
     }
 }

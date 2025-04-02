@@ -71,4 +71,14 @@ public class Klub {
         result = 31 * result + getNaziv().hashCode();
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Klub{" +
+                "id=" + id +
+                ", grad='" + grad + '\'' +
+                ", godina='" + godina + '\'' +
+                ", naziv='" + naziv + '\'' +
+                '}';
+    }
 }

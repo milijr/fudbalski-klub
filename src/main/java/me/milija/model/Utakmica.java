@@ -1,6 +1,8 @@
 package me.milija.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 import java.util.Date;
@@ -10,11 +12,12 @@ import java.util.Objects;
 public class Utakmica {
 
     @Id
-    private long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "utakmica_seq")
+    private Long id;
     private String stadion;
     private Date datum;
 
-    public Utakmica(long id, String stadion, Date datum) {
+    public Utakmica(Long id, String stadion, Date datum) {
         this.id = id;
         this.stadion = stadion;
         this.datum = datum;
@@ -24,11 +27,11 @@ public class Utakmica {
 
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -49,10 +52,11 @@ public class Utakmica {
     }
 
     @Override
-    public final boolean equals(Object o) {
-        if (!(o instanceof Utakmica utakmica)) return false;
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
 
-        return getId() == utakmica.getId() && getStadion().equals(utakmica.getStadion()) && getDatum().equals(utakmica.getDatum());
+        Utakmica utakmica = (Utakmica) o;
+        return Objects.equals(getId(), utakmica.getId()) && Objects.equals(getStadion(), utakmica.getStadion()) && Objects.equals(getDatum(), utakmica.getDatum());
     }
 
     @Override
@@ -61,5 +65,14 @@ public class Utakmica {
         result = 31 * result + getStadion().hashCode();
         result = 31 * result + getDatum().hashCode();
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Utakmica{" +
+                "id=" + id +
+                ", stadion='" + stadion + '\'' +
+                ", datum=" + datum +
+                '}';
     }
 }

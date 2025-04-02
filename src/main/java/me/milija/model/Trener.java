@@ -1,13 +1,24 @@
 package me.milija.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 import java.util.Objects;
 
+@Entity
 public class Trener {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trener_seq")
+    private Long id;
     private String ime;
     private String prezime;
     private String nacionalnost;
 
-    public Trener(String ime, String prezime, String nacionalnost) {
+    public Trener(Long id, String ime, String prezime, String nacionalnost) {
+        this.id = id;
         this.ime = ime;
         this.prezime = prezime;
         this.nacionalnost = nacionalnost;
@@ -41,15 +52,38 @@ public class Trener {
         this.nacionalnost = nacionalnost;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
+
         Trener trener = (Trener) o;
-        return Objects.equals(getIme(), trener.getIme()) && Objects.equals(getPrezime(), trener.getPrezime()) && Objects.equals(getNacionalnost(), trener.getNacionalnost());
+        return getId().equals(trener.getId()) && getIme().equals(trener.getIme()) && getPrezime().equals(trener.getPrezime()) && getNacionalnost().equals(trener.getNacionalnost());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIme(), getPrezime(), getNacionalnost());
+        int result = getId().hashCode();
+        result = 31 * result + getIme().hashCode();
+        result = 31 * result + getPrezime().hashCode();
+        result = 31 * result + getNacionalnost().hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Trener{" +
+                "id=" + id +
+                ", ime='" + ime + '\'' +
+                ", prezime='" + prezime + '\'' +
+                ", nacionalnost='" + nacionalnost + '\'' +
+                '}';
     }
 }
