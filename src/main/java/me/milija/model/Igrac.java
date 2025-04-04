@@ -1,11 +1,9 @@
 package me.milija.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Igrac {
@@ -17,6 +15,8 @@ public class Igrac {
     private String prezime;
     private String pozicija;
     private int broj_dresa;
+
+
 
     public Igrac(Long id, String ime, String prezime, String pozicija, int broj_dresa) {
         this.id = id;

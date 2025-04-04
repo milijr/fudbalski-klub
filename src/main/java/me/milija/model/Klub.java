@@ -4,16 +4,26 @@ package me.milija.model;
 import jakarta.persistence.*;
 
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = Klub.GET_ALL_CLUBS, query = "Select k from Klub k"),
+})
 public class Klub {
 
+
+    public static final String GET_ALL_CLUBS = "Klub.allClubs";
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "klub_seq")
     private Long id;
     private String grad;
     private String godina;
     private String naziv;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "klub_id")
+    private Set<Trener> treneri;
 
     public Klub(Long id, String godina, String grad, String naziv) {
         this.id = id;
@@ -23,6 +33,14 @@ public class Klub {
     }
 
     public Klub() {
+    }
+
+    public Set<Trener> getTreneri() {
+        return treneri;
+    }
+
+    public void setTreneri(Set<Trener> treneri) {
+        this.treneri = treneri;
     }
 
     public Long getId() {

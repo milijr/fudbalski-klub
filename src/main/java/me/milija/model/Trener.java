@@ -1,21 +1,24 @@
 package me.milija.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 
 @Entity
+@NamedQuery(name = Trener.GET_COACH_FOR_CLUB, query = "Select t from Trener t where t.klub.id = :id")
+
 public class Trener {
 
+    public static final String GET_COACH_FOR_CLUB = "Trener.getCoachForClub";
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trener_seq")
     private Long id;
     private String ime;
     private String prezime;
     private String nacionalnost;
+
+    @ManyToOne
+    private Klub klub;
 
     public Trener(Long id, String ime, String prezime, String nacionalnost) {
         this.id = id;
