@@ -6,6 +6,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import me.milija.model.Klub;
 import me.milija.model.Trener;
+import me.milija.model.client.UtakmicaIgrac;
 
 import java.util.HashSet;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
 public class KlubRepository {
 
     @Inject
+
     private EntityManager em;
 
     @Transactional
@@ -31,6 +33,11 @@ public class KlubRepository {
         }
 
         return klubovi;
+    }
+
+    @Transactional
+    public UtakmicaIgrac createUtakmicaIgrac(UtakmicaIgrac ui){
+        return em.merge(ui);
     }
 
 
