@@ -13,11 +13,14 @@ import me.milija.model.Klub;
 import me.milija.model.TypeOfHoliday;
 import me.milija.model.client.ResponseCountry;
 import me.milija.model.client.ResponseHoliday;
+import me.milija.model.client.ResponseWeather;
 import me.milija.model.client.UtakmicaIgrac;
 import me.milija.repository.HolidayRepository;
 import me.milija.repository.KlubRepository;
+import me.milija.repository.WeatherRepository;
 import me.milija.restclient.AvailableCountriesClient;
 import me.milija.restclient.HolidayClient;
+import me.milija.restclient.WeatherClient;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 @Path("/klub/")
@@ -28,6 +31,12 @@ public class KlubResource {
 
     @Inject
     private HolidayRepository holr;
+
+    @Inject
+    private WeatherRepository weat;
+
+    @RestClient
+    private WeatherClient wc;
 
     @RestClient
     private AvailableCountriesClient av;
@@ -86,6 +95,17 @@ public class KlubResource {
         }
 
         return Response.ok().entity(holResp).build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/getForecast/")
+    public Response getForecast(@QueryParam("city") String city){
+
+        ResponseWeather weatResp = wc.getForecast(city);
+
+        return Response.ok().entity(weatResp).build();
+
     }
 
     private Holiday convertToHolidayEntity(ResponseHoliday hr) {
