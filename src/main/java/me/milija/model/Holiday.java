@@ -28,6 +28,21 @@ public class Holiday {
     @JoinColumn(name = "holiday_id")
     private List<TypeOfHoliday> types;
 
+    public Holiday() {
+    }
+
+    public Holiday(Long id, LocalDate date, String localName, String name, String countryCode, boolean global, List<String> counties, int launchYear, List<TypeOfHoliday> types) {
+        this.id = id;
+        this.date = date;
+        this.localName = localName;
+        this.name = name;
+        this.countryCode = countryCode;
+        this.global = global;
+        this.counties = counties;
+        this.launchYear = launchYear;
+        this.types = types;
+    }
+
     public LocalDate getDate() {
         return date;
     }

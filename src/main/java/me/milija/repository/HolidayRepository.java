@@ -12,7 +12,7 @@ import java.time.LocalDate;
 public class HolidayRepository {
 
     @Inject
-    private static EntityManager em;
+    private EntityManager em;
 
     @Transactional
     public Holiday createHoliday(Holiday h){

@@ -15,6 +15,20 @@ public class ResponseHoliday {
     private int launchYear;
     private List<String> types;
 
+    public ResponseHoliday() {
+    }
+
+    public ResponseHoliday(LocalDate date, String localName, String name, String countryCode, boolean global, List<String> counties, int launchYear, List<String> types) {
+        this.date = date;
+        this.localName = localName;
+        this.name = name;
+        this.countryCode = countryCode;
+        this.global = global;
+        this.counties = counties;
+        this.launchYear = launchYear;
+        this.types = types;
+    }
+
     public LocalDate getDate() {
         return date;
     }

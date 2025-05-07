@@ -75,7 +75,7 @@ public class KlubResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/NextPublicHolidays/{countryCode}")
     public Response getNextPublicHolidays(@PathParam("countryCode") String countryCode){
-        List<ResponseHoliday> holResp = hc.getNextPublicHolidays("countryCode");
+        List<ResponseHoliday> holResp = hc.getNextPublicHolidays(countryCode);
 
 
         for (ResponseHoliday hr : holResp) {
