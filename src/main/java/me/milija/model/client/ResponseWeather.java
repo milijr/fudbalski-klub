@@ -23,6 +23,10 @@ public class ResponseWeather {
         this.forecast = forecast;
     }
 
+    public ResponseWeather(String temperature, String wind, String description) {
+
+    }
+
     public String getCity() {
         return city;
     }

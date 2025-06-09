@@ -4,6 +4,7 @@ import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
+import me.milija.model.Forecast;
 import me.milija.model.Weather;
 
 @Dependent
@@ -16,6 +17,8 @@ public class WeatherRepository {
     public Weather createWeather(Weather w){
         return em.merge(w);
     }
+
+
 
 
 

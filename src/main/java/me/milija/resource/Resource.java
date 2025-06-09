@@ -1,16 +1,15 @@
 package me.milija.resource;
 
-import java.time.LocalDate;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import me.milija.model.Holiday;
-import me.milija.model.Klub;
-import me.milija.model.TypeOfHoliday;
+import me.milija.model.*;
 import me.milija.model.client.ResponseCountry;
 import me.milija.model.client.ResponseHoliday;
 import me.milija.model.client.ResponseWeather;
@@ -24,10 +23,13 @@ import me.milija.restclient.WeatherClient;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 @Path("/klub/")
-public class KlubResource {
+public class Resource {
 
     @Inject
     private KlubRepository kr;
+
+    @Inject
+    private WeatherRepository wr;
 
     @Inject
     private HolidayRepository holr;
@@ -50,6 +52,15 @@ public class KlubResource {
     public Response dodajKlub(Klub klub){
         Klub k = kr.dodajKlub(klub);
         return Response.ok().entity(k).build();
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/createWeather")
+    public Response createForecast(Weather weather){
+        Weather w = wr.createWeather(weather);
+
+        return Response.ok().entity(w).build();
     }
 
     @GET
@@ -103,6 +114,7 @@ public class KlubResource {
     public Response getForecast(@QueryParam("city") String city){
 
         ResponseWeather weatResp = wc.getForecast(city);
+        weatResp.setCity(city);
 
         return Response.ok().entity(weatResp).build();
 
@@ -129,6 +141,8 @@ public class KlubResource {
         holiday.setTypes(types);
         return holiday;
     }
+
+
 
 
 }

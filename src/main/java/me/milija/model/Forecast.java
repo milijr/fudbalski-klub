@@ -1,6 +1,16 @@
 package me.milija.model;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 public class Forecast {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "forecast_seq")
+    private Long id;
+
+    private String city;
     private String day;
     private String temperature;
     private String wind;
@@ -8,10 +18,28 @@ public class Forecast {
     public Forecast() {
     }
 
-    public Forecast(String day, String temperature, String wind) {
+    public Forecast(Long id, String city, String day, String temperature, String wind) {
+        this.id = id;
+        this.city = city;
         this.day = day;
         this.temperature = temperature;
         this.wind = wind;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getDay() {

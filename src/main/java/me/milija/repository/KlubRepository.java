@@ -15,7 +15,6 @@ import java.util.List;
 public class KlubRepository {
 
     @Inject
-
     private EntityManager em;
 
     @Transactional
